@@ -1,0 +1,83 @@
+.card.book p
+{
+  margin: auto;
+}
+
+.book-location,
+.book-editors {
+  border: none;
+}
+
+.book-location .card-body {
+  text-align: center;
+}
+
+.book-editors ul {
+  text-align: center;
+}
+
+.book-editors .card-body {
+  padding-top: 0;
+}
+
+.book-editors .card-body .list-group-item{
+  padding-bottom: 0;
+  padding-top: 0.25rem;
+}
+
+.book-location-editors-container div.btn {
+  cursor: default;
+}
+
+.book-location-editors-container div.btn:hover {
+  background-color: #007bff;
+}
+
+@media only screen and (min-width: 576px) {
+  .book-location-editors-details-container {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+  }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 768px){
+  .book-authors .card-body ul {
+    text-align: center;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+
+  .book-location-editors-details-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .book-location-editors-container {
+    width: 20rem;
+    margin-right: 0.5rem;
+  }
+
+  .book-details {
+    width: 20rem;
+    margin-left: 0.5rem;
+  }
+
+  .book-details .card-body .list-group-item {
+    padding: 0.25rem 0.5rem;
+  }
+
+  .book-authors {
+    width: 41rem;
+    margin: 0.5rem auto;
+  }
+
+  .book-authors .list-group {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+

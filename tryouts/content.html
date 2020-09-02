@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    ul {
+      list-style-type: none;
+    }
+
+    /* Remove margins and padding from the parent ul */
+    #myUL {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Style the caret/arrow */
+    .caret {
+      cursor: pointer;
+      user-select: none; /* Prevent text selection */
+    }
+
+    /* Create the caret/arrow with a unicode, and style it */
+    .caret::before {
+      content: "\229F";
+      color: black;
+      display: inline-block;
+      margin-right: 6px;
+    }
+
+    /* Rotate the caret/arrow icon when clicked on (using JavaScript) */
+    .caret-down::before {
+      content: "\229E";
+      color: black;
+      display: inline-block;
+      margin-right: 6px;
+    }
+
+    /* Hide the nested list */
+    .nested {
+      display: none;
+    }
+
+    /* Show the nested list when the user clicks on the caret/arrow (with JavaScript) */
+    .active {
+      display: block;
+    }
+
+    ul.nested div.pagination {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    ul.nested div.caret.pagination {
+      position: relative;
+    }
+
+    ul.nested div.caret.pagination .title {
+      position: absolute;
+      left: 20px;
+    }
+
+    li.odd {
+      background-color: lightgrey;
+    }
+  </style>
+</head>
+<body>
+<div id="root"><ul></ul></div>
+<script src="https://code.jquery.com/jquery-3.5.1.js"
+integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+crossorigin="anonymous"></script>
+<script src="http://cdn.jsdelivr.net/npm/ramda@0.25.0/dist/ramda.min.js"></script>
+<script>
+  const content = [{
+    children: [
+      {
+        t_e_x_t: 'POEZIA ENGLEZA VECHE (ANGLO-SAXONA)',
+        children: [
+          {
+            t_e_x_t: 'Pribeagul',
+            p_a_g_e: 3
+          },
+          {
+            t_e_x_t: 'Naierul',
+            p_a_g_e: 7
+          },
+          {
+            t_e_x_t: 'Beowulf',
+            p_a_g_e: 9
+          }
+        ]
+      },
+      {
+        t_e_x_t: 'PEZIA ENGLEZA MEDIEVALA',
+        children: [
+          {
+            t_e_x_t: 'I. POEZIA ANGLO-NORMANDA',
+            children: [
+              {
+                t_e_x_t: 'a) Poezia lirica',
+                children: [
+                  {
+                    t_e_x_t: 'Cantecul cucului',
+                    p_a_g_e: 19
+                  },
+                  {
+                    t_e_x_t: 'Alison',
+                    p_a_g_e: 20
+                  },
+                  {
+                    t_e_x_t: 'Flori se vad pe ram',
+                    p_a_g_e: 22
+                  },
+                  {
+                    t_e_x_t: 'Cand ma bat trei ganduri ...',
+                    p_a_g_e: 23
+                  },
+                  {
+                    t_e_x_t: 'Oachesi fierari',
+                    p_a_g_e: 23
+                  },
+                  {
+                    t_e_x_t: 'Dadui deunazi de-un diac...',
+                    p_a_g_e: 24
+                  },
+                  {
+                    t_e_x_t: 'Am... o sora',
+                    p_a_g_e: 25
+                  },
+                  {
+                    t_e_x_t: 'Dragostea-i...',
+                    p_a_g_e: 26
+                  }
+                ]
+              },
+              {
+                t_e_x_t: 'b) Poezia dramatica',
+                children: [
+                  {
+                    t_e_x_t: 'Bufnita si privighetoarea',
+                    p_a_g_e: 28
+                  }
+                ]
+              },
+              {
+                t_e_x_t: 'c) Poezia curtenesca',
+                children: [
+                  {
+                    t_e_x_t: 'Sir Orfeo',
+                    p_a_g_e: 36
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            t_e_x_t: 'II. EPOCA LUI CHAUCER',
+            children: [
+              {
+                t_e_x_t: 'Tara Cockaygne',
+                p_a_g_e: 43
+              },
+              {
+                t_e_x_t: 'WILLIAM LANGLAND',
+                children: [
+                  {
+                    t_e_x_t: 'Viziunea lui William asupra lui Petre Plugarul',
+                    p_a_g_e: 51
+                  }
+                ]
+              },
+              {
+                t_e_x_t: 'JOHN GOWER',
+                children: [
+                  {
+                    t_e_x_t: 'Confessio Amantis',
+                    p_a_g_e: 55
+                  }
+                ]
+              },
+              {
+                t_e_x_t: 'GEOFREY CHAUCER',
+                children: [
+                  {
+                    t_e_x_t: 'Rozamundei',
+                    p_a_g_e: 61
+                  },
+                  {
+                    t_e_x_t: 'L\'envoy de Chaucer a Scogan',
+                    p_a_g_e: 62
+                  },
+                  {
+                    t_e_x_t: 'Troilus si Cresida',
+                    p_a_g_e: 64
+                  },
+                  {
+                    t_e_x_t: 'Povestirile din Canterbury',
+                    p_a_g_e: 70
+                  },
+                  {
+                    t_e_x_t: 'Jeluirea lui Chaucer catre punga sa',
+                    p_a_g_e: 74
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            t_e_x_t: 'III. SECOLUL AL XV-LEA',
+            children: [
+              {
+                t_e_x_t: 'BALADE POPULARE',
+                children: [
+                  {
+                    t_e_x_t: 'Vanatoarea din muntii Cheviot',
+                    p_a_g_e: 88
+                  },
+                  {
+                    t_e_x_t: 'Robin Hood si Micul John',
+                    p_a_g_e: 98
+                  },
+                  {
+                    t_e_x_t: 'Cele doua surori',
+                    p_a_g_e: 103
+                  },
+                  {
+                    t_e_x_t: 'Edward, Edward',
+                    p_a_g_e: 106
+                  },
+                  {
+                    t_e_x_t: 'Clerk Saunders',
+                    p_a_g_e: 108
+                  },
+                  {
+                    t_e_x_t: 'Thomas Stihuitorul',
+                    p_a_g_e: 111
+                  },
+                  {
+                    t_e_x_t: 'Sir Patrick Spens',
+                    p_a_g_e: 114
+                  },
+                  {
+                    t_e_x_t: 'Regele John si episcopul',
+                    p_a_g_e: 116
+                  },
+                  {
+                    t_e_x_t: 'Te du si-nchide usa',
+                    p_a_g_e: 122
+                  },
+                  {
+                    t_e_x_t: 'Fermierul cel hatru',
+                    p_a_g_e: 123
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        t_e_x_t: 'POEZIA ENGLEZA MODERNA',
+        children: [
+          {
+            t_e_x_t: 'I. RENASTEREA',
+            children: [
+              {
+                t_e_x_t: 'Thomas Wyatt',
+                children: [
+                  {
+                    t_e_x_t: 'Lautei sale',
+                    p_a_g_e: 129
+                  }
+                ]
+              },
+              {
+                t_e_x_t: 'Henry Howard, Earl of Surrey',
+                children: [
+                  {
+                    t_e_x_t: 'Fagaduinta iubirii credincioase',
+                    p_a_g_e: 131
+                  },
+                  {
+                    t_e_x_t: 'Descrierea primaverii',
+                    p_a_g_e: 132
+                  }
+                ]
+              },
+              {
+                t_e_x_t: 'William Stevenson',
+                children: [
+                  {
+                    t_e_x_t: 'Cantec...',
+                    p_a_g_e: 133
+                  }
+                ]
+              },
+              {
+                t_e_x_t: 'Nicholas Breton',
+                children: [
+                  {
+                    t_e_x_t: 'Phillida si Coridon',
+                    p_a_g_e: 135
+                  }
+                ]
+              },
+              {
+                t_e_x_t: 'Edmund Spenser',
+                children: [
+                  {
+                    t_e_x_t: 'Craiasa zanelor',
+                    p_a_g_e: 138
+                  },
+                  {
+                    t_e_x_t: 'Calendarul pastorului',
+                    p_a_g_e: 139
+                  },
+                  {
+                    t_e_x_t: 'Plangeri (Viziuni ale desertaciunii lumii)',
+                    p_a_g_e: 141
+                  },
+                  {
+                    t_e_x_t: 'Amoretti',
+                    p_a_g_e: 141
+                  }
+                ]
+              },
+              {
+                t_e_x_t: 'Walter Raleigh',
+                children: [
+                  {
+                    t_e_x_t: 'Dragostea mea m-a lasat',
+                    p_a_g_e: 143
+                  },
+                  {
+                    t_e_x_t: 'Minciuna',
+                    p_a_g_e: 145
+                  }
+                ]
+              },
+              {
+                t_e_x_t: 'Philip Sidney',
+                children: [
+                  {
+                    t_e_x_t: 'Astrophel si Stella',
+                    p_a_g_e: 147
+                  }
+                ]
+              },
+              {
+                t_e_x_t: 'Samuel Daniel',
+                children: [
+                  {
+                    t_e_x_t: 'Sonete',
+                    p_a_g_e: 151
+                  }
+                ]
+              },
+              {
+                t_e_x_t: 'Christopher Marlowe',
+                children: [
+                  {
+                    t_e_x_t: 'Hai, vino-mi, fii iubirea mea',
+                    p_a_g_e: 158
+                  },
+                  {
+                    t_e_x_t: 'Hero si Leandru',
+                    p_a_g_e: 159
+                  }
+                ]
+              },
+              {
+                t_e_x_t: 'William Shakespeare',
+                children: [
+                  {
+                    t_e_x_t: 'Venus si Adonis',
+                    p_a_g_e: 165
+                  },
+                  {
+                    t_e_x_t: 'Necinstirea Lucretiei',
+                    p_a_g_e: 167
+                  },
+                  {
+                    t_e_x_t: 'Sonete',
+                    p_a_g_e: 176
+                  }
+                ]
+              },
+              {
+                t_e_x_t: 'Thomas Campion',
+                children: [
+                  {
+                    t_e_x_t: 'Preadulcei mele Lesbia',
+                    p_a_g_e: 185
+                  }
+                ]
+              },
+              {
+                t_e_x_t: 'Ben Jonson',
+                children: [
+                  {
+                    t_e_x_t: 'Celiei',
+                    p_a_g_e: 187
+                  },
+                  {
+                    t_e_x_t: 'Intru memoria preadragului meu autor W. Shakespeare',
+                    p_a_g_e: 188
+                  },
+                  {
+                    t_e_x_t: 'Oda (Sie-si)',
+                    p_a_g_e: 191
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            t_e_x_t: 'II. SECOLUL AL XVII-LEA',
+            children: [
+              {
+                t_e_x_t: 'a) Poetii metafizici',
+                children: [
+                  {
+                    t_e_x_t: 'JOHN DONNE',
+                    children: [
+                      {
+                        t_e_x_t: 'Cantec',
+                        p_a_g_e: 195
+                      },
+                      {
+                        t_e_x_t: 'Visul',
+                        p_a_g_e: 196
+                      },
+                      {
+                        t_e_x_t: 'Extazul',
+                        p_a_g_e: 197
+                      },
+                      {
+                        t_e_x_t: 'Sonete sacre',
+                        p_a_g_e: 198
+                      }
+                    ]
+                  },
+                  {
+                    t_e_x_t: 'GEORGE HERBERT',
+                    children: [
+                      {
+                        t_e_x_t: 'Virtutea',
+                        p_a_g_e: 200
+                      }
+                    ]
+                  },
+                  {
+                    t_e_x_t: 'RICHARD CRANSHAW',
+                    children: [
+                      {
+                        t_e_x_t: 'Epitaf',
+                        p_a_g_e: 202
+                      }
+                    ]
+                  },
+                  {
+                    t_e_x_t: 'ABRAHAM COWLEY',
+                    children: [
+                      {
+                        t_e_x_t: 'Despre bautori',
+                        p_a_g_e: 204
+                      },
+                      {
+                        t_e_x_t: 'Cronica',
+                        p_a_g_e: 205
+                      }
+                    ]
+                  },
+                  {
+                    t_e_x_t: 'HENRY VAUGHAN',
+                    children: [
+                      {
+                        t_e_x_t: 'Intoarcerea',
+                        p_a_g_e: 208
+                      },
+                      {
+                        t_e_x_t: 'Butucul',
+                        p_a_g_e: 209
+                      }
+                    ]
+                  },
+                  {
+                    t_e_x_t: 'ANDREW MARVELL',
+                    children: [
+                      {
+                        t_e_x_t: 'Ganduri intr-o gradina',
+                        p_a_g_e: 211
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                t_e_x_t: 'b) Poetii cavaleri',
+                children: [
+                  {
+                    t_e_x_t: 'ROBERT HERRICK',
+                    children: [
+                      {
+                        t_e_x_t: 'Corina la Floralii',
+                        p_a_g_e: 215
+                      },
+                      {
+                        t_e_x_t: 'Narciselor',
+                        p_a_g_e: 217
+                      }
+                    ]
+                  },
+                  {
+                    t_e_x_t: 'THOMAS CAREW',
+                    children: [
+                      {
+                        t_e_x_t: 'Cantec',
+                        p_a_g_e: 218
+                      },
+                      {
+                        t_e_x_t: 'Nestatornicei sale iubite',
+                        p_a_g_e: 219
+                      },
+                      {
+                        t_e_x_t: 'Adevarata frumusete',
+                        p_a_g_e: 219
+                      }
+                    ]
+                  },
+                  {
+                    t_e_x_t: 'JOHN SUCKLING',
+                    children: [
+                      {
+                        t_e_x_t: 'Balada pentru o cununie',
+                        p_a_g_e: 221
+                      },
+                      {
+                        t_e_x_t: 'Pentru ce-arati stins si pal ?',
+                        p_a_g_e: 222
+                      }
+                    ]
+                  },
+                  {
+                    t_e_x_t: 'RICHARD LOVELACE',
+                    children: [
+                      {
+                        t_e_x_t: 'Lucastei, la plecarea in razboi',
+                        p_a_g_e: 224
+                      },
+                      {
+                        t_e_x_t: 'Catre Althea, din inchisoare',
+                        p_a_g_e: 225
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                t_e_x_t: 'c) Poetii puritani',
+                children: [
+                  {
+                    t_e_x_t: 'JOHN MILTON',
+                    children: [
+                      {
+                        t_e_x_t: 'Lui Shakespeare',
+                        p_a_g_e: 228
+                      },
+                      {
+                        t_e_x_t: 'L\'Allegro',
+                        p_a_g_e: 228
+                      },
+                      {
+                        t_e_x_t: 'Comus',
+                        p_a_g_e: 233
+                      },
+                      {
+                        t_e_x_t: 'Licidas',
+                        p_a_g_e: 234
+                      },
+                      {
+                        t_e_x_t: 'Sonete',
+                        p_a_g_e: 237
+                      },
+                      {
+                        t_e_x_t: 'Paradisul pierdut',
+                        p_a_g_e: 239
+                      },
+                      {
+                        t_e_x_t: 'Samson Agonistes',
+                        p_a_g_e: 245
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                t_e_x_t: 'd) Prima generatie de poeti neoclasici',
+                children: [
+                  {
+                    t_e_x_t: 'SAMUEL BUTLER',
+                    children: [
+                      {
+                        t_e_x_t: 'Hudibras',
+                        p_a_g_e: 252
+                      }
+                    ]
+                  },
+                  {
+                    t_e_x_t: 'JOHN DRYDEN',
+                    children: [
+                      {
+                        t_e_x_t: 'Annus Mirabilis',
+                        p_a_g_e: 260
+                      },
+                      {
+                        t_e_x_t: 'Ades vezi frumusetea campeneasca',
+                        p_a_g_e: 263
+                      },
+                      {
+                        t_e_x_t: 'Priviti pe Shakespeare',
+                        p_a_g_e: 264
+                      },
+                      {
+                        t_e_x_t: 'Absalom si Achitophel',
+                        p_a_g_e: 264
+                      },
+                      {
+                        t_e_x_t: 'Un cantec pentru ziua Sfintei Cecilia',
+                        p_a_g_e: 265
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            t_e_x_t: 'III. SECOLUL AL XVIII-LEA',
+            children: [
+              {
+                t_e_x_t: 'a) A doua generatie de poeti neoclasici',
+                children: [
+                  {
+                    t_e_x_t: 'MATTHEW PRIOR',
+                    children: [
+                      {
+                        t_e_x_t: 'Inscriptie pentru monumentul meu',
+                        p_a_g_e: 267
+                      }
+                    ]
+                  },
+                  {
+                    t_e_x_t: 'HENRY CAREY',
+                    children: [
+                      {
+                        t_e_x_t: 'Cantec de pocal',
+                        p_a_g_e: 269
+                      }
+                    ]
+                  },
+                  {
+                    t_e_x_t: 'ALEXANDER POPE',
+                    children: [
+                      {
+                        t_e_x_t: 'Eseu despre critica',
+                        p_a_g_e: 270
+                      },
+                      {
+                        t_e_x_t: 'Elegie',
+                        p_a_g_e: 276
+                      },
+                      {
+                        t_e_x_t: 'Rapirea buclei',
+                        p_a_g_e: 279
+                      },
+                      {
+                        t_e_x_t: 'Eseu despre om',
+                        p_a_g_e: 280
+                      },
+                      {
+                        t_e_x_t: 'Satira a II-a',
+                        p_a_g_e: 283
+                      },
+                      {
+                        t_e_x_t: 'Scrisoare catre Arbuthnot',
+                        p_a_g_e: 285
+                      }
+                    ]
+                  },
+                  {
+                    t_e_x_t: 'MARK AKENSIDE',
+                    children: [
+                      {
+                        t_e_x_t: 'Privighetoarea',
+                        p_a_g_e: 289
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }]
+
+  const menu = [{
+    t_e_x_t: 'Beverages',
+    children: [
+      {
+        t_e_x_t: 'Water'
+      },
+      {
+        t_e_x_t: 'Coffee',
+        children: [
+          {
+            t_e_x_t: 'Black Coffee',
+          }
+        ]
+      },
+      {
+        t_e_x_t: 'Tea',
+        children: [
+          {
+            t_e_x_t: 'Black Tea'
+          },
+          {
+            t_e_x_t: 'White Tea'
+          },
+          {
+            t_e_x_t: 'Green Tea',
+            children: [
+              {
+                t_e_x_t: 'Sencha'
+              },
+              {
+                t_e_x_t: 'Gyokuro'
+              },
+              {
+                t_e_x_t: 'Matcha'
+              }
+            ]
+          }
+        ]
+      },
+    ]
+  }];
+
+  const elvetiene = [{
+    children: [
+      {
+        t_e_x_t: 'RODOLPHE TOPFFER',
+        p_a_g_e: 1,
+        children: [
+          {
+            t_e_x_t: 'Incendiul',
+            p_a_g_e: 4
+          }
+        ]
+      },
+      {
+        t_e_x_t: 'HENRI-FREDERIC AMIEL',
+        p_a_g_e: 22,
+        children: [
+          {
+            t_e_x_t: 'Jurnal intim',
+            p_a_g_e: 26
+          }
+        ]
+      },
+      {
+        t_e_x_t: 'CHARLES-FERDINAND RAMUZ',
+        p_a_g_e: 48,
+        children: [
+          {
+            t_e_x_t: 'Culesul viitor',
+            p_a_g_e: 51
+          }
+        ]
+      },
+      {
+        t_e_x_t: 'GONZAGUE DE REYNOLD',
+        p_a_g_e: 88,
+        children: [
+          {
+            t_e_x_t: 'Sufletul Fribourgului',
+            p_a_g_e: 90
+          }
+        ]
+      },
+      {
+        t_e_x_t: 'CHARLES-ALBERT CINGRIA',
+        p_a_g_e: 102,
+        children: [
+          {
+            t_e_x_t: 'Florilegii helvetice',
+            p_a_g_e: 104
+          }
+        ]
+      },
+      {
+        t_e_x_t: 'MONIQUE DE SAINT-HELIER',
+        p_a_g_e: 117,
+        children: [
+          {
+            t_e_x_t: 'Crengi uscate',
+            p_a_g_e: 119
+          }
+        ]
+      },
+      {
+        t_e_x_t: 'EDMOND-HENRI CRISINEL',
+        p_a_g_e: 135,
+        children: [
+          {
+            t_e_x_t: 'Alecto',
+            p_a_g_e: 136
+          }
+        ]
+      },
+      {
+        t_e_x_t: 'GUSTAVE ROUD',
+        p_a_g_e: 146,
+        children: [
+          {
+            t_e_x_t: 'Cantecul singuratatii',
+            p_a_g_e: 148
+          }
+        ]
+      },
+      {
+        t_e_x_t: 'ALICE RIVAZ',
+        p_a_g_e: 158,
+        children: [
+          {
+            t_e_x_t: 'Omul rau',
+            p_a_g_e: 160
+          }
+        ]
+      },
+      {
+        t_e_x_t: 'SIMONE-CORINNA BILLE',
+        p_a_g_e: 170,
+        children: [
+          {
+            t_e_x_t: 'Vrajitoria',
+            p_a_g_e: 172
+          }
+        ]
+      },
+      {
+        t_e_x_t: 'GEORGES BORGEAUD',
+        p_a_g_e: 193,
+        children: [
+          {
+            t_e_x_t: 'Distrugatorul',
+            p_a_g_e: 195
+          }
+        ]
+      },
+      {
+        t_e_x_t: 'MAURICE CHAPPAZ',
+        p_a_g_e: 203,
+        children: [
+          {
+            t_e_x_t: 'Portretul valaisanilor',
+            p_a_g_e: 207
+          }
+        ]
+      },
+      {
+        t_e_x_t: 'JEAN-PIERRE MONNIER',
+        p_a_g_e: 222,
+        children: [
+          {
+            t_e_x_t: 'Sangele lor dezbinat',
+            p_a_g_e: 224
+          }
+        ]
+      },
+      {
+        t_e_x_t: 'JEAN-PIERRE SCHLUNEGGER',
+        p_a_g_e: 231,
+        children: [
+          {
+            t_e_x_t: 'Camera muzicianului',
+            p_a_g_e: 232
+          }
+        ]
+      },
+      {
+        t_e_x_t: 'PHILIPPE JACCOTTET',
+        p_a_g_e: 255,
+        children: [
+          {
+            t_e_x_t: 'Peisaje cu figuri absente',
+            p_a_g_e: 257
+          }
+        ]
+      },
+      {
+        t_e_x_t: 'ALEXANDRE VOISARD',
+        p_a_g_e: 273,
+        children: [
+          {
+            t_e_x_t: 'Privilegiul unghiei',
+            p_a_g_e: 274
+          }
+        ]
+      },
+      {
+        t_e_x_t: 'ODETTE RENAUD-VERNET',
+        p_a_g_e: 278,
+        children: [
+          {
+            t_e_x_t: 'O iarna la New York',
+            p_a_g_e: 279
+          }
+        ]
+      },
+      {
+        t_e_x_t: 'JACQUES CHESSEX',
+        p_a_g_e: 289,
+        children: [
+          {
+            t_e_x_t: 'Femei',
+            p_a_g_e: 292
+          }
+        ]
+      },
+      {
+        t_e_x_t: 'ANNE CUNEO',
+        p_a_g_e: 313,
+        children: [
+          {
+            t_e_x_t: 'Gravat in diamant',
+            p_a_g_e: 314
+          }
+        ]
+      },
+      {
+        t_e_x_t: 'ETIENNE BARILIER',
+        p_a_g_e: 327,
+        children: [
+          {
+            t_e_x_t: 'Gelozie',
+            p_a_g_e: 328
+          }
+        ]
+      },
+      {
+        t_e_x_t: 'ANNE-LISE GROBETY',
+        p_a_g_e: 338,
+        children: [
+          {
+            t_e_x_t: 'Josnica bestie, bestie moarta',
+            p_a_g_e: 339
+          }
+        ]
+      }
+    ]
+  }];
+
+  function treeCreater(treeArr) {
+    var $ = treeArr,
+      root = document.createDocumentFragment(),
+      childLevel = 0,
+      striped = false,
+      countLi = 0
+    ;
+    function insertChildren(parentNode, traverseArr) {
+      for(let i = 0; i < traverseArr.length; i++) {
+        if(parentNode === root) {
+          childLevel = 0
+        }
+        var currentLi = document.createElement('li');
+        if(traverseArr[i].children && traverseArr[i].children.length > 0) {
+          var div = document.createElement('div');
+          if (childLevel !== 0){
+            div.classList.add('caret');
+          }
+          if (childLevel === 0 && typeof traverseArr[i].t_e_x_t === 'undefined') {
+            div.innerText = 'Cuprins';
+          } else {
+            if(typeof traverseArr[i].p_a_g_e === 'undefined'){
+              div.innerText = traverseArr[i].t_e_x_t;
+            } else {
+              var p_text = document.createElement('p');
+              p_text.classList.add('title');
+              p_text.innerText = traverseArr[i].t_e_x_t;
+              var p_page = document.createElement('p');
+              p_page.innerText = traverseArr[i].p_a_g_e;
+              div.classList.add('pagination')
+              div.appendChild(p_text);
+              div.appendChild(p_page);
+            }
+          }
+          var ul = document.createElement('ul');
+          ul.classList.add('nested');
+          ul.classList.add('active');
+          currentLi.appendChild(div);
+          currentLi.appendChild(ul);
+          childLevel++;
+          if (currentLi.getElementsByClassName('nested').length === 1){
+            striped = true;
+            countLi = 0;
+          } else {
+            striped = false;
+          }
+          insertChildren(currentLi.getElementsByClassName('nested')[0], traverseArr[i].children);
+        } else {
+          var div = document.createElement('div');
+          if(typeof traverseArr[i].p_a_g_e === 'undefined'){
+            div.innerText = traverseArr[i].t_e_x_t;
+          } else {
+            var p_text = document.createElement('p');
+            p_text.innerText = traverseArr[i].t_e_x_t;
+            var p_page = document.createElement('p');
+            p_page.innerText = traverseArr[i].p_a_g_e;
+            div.classList.add('pagination');
+            div.appendChild(p_text);
+            div.appendChild(p_page);
+          }
+          if (striped) {
+            countLi += 1;
+            if (countLi % 2 === 1){
+              currentLi.classList.add('odd');
+            }
+          }
+          currentLi.appendChild(div);
+        }
+        parentNode.appendChild(currentLi);
+      }
+    }
+    insertChildren(root, $);
+    document.querySelector('ul').appendChild(root);
+  }
+
+
+ treeCreater(content);
+
+  var toggler = document.getElementsByClassName("caret");
+  var i;
+
+  for (i = 0; i < toggler.length; i++) {
+    toggler[i].addEventListener("click", function() {
+      this.parentElement.querySelector(".nested").classList.toggle("active");
+      this.classList.toggle("caret-down");
+    });
+  }
+</script>
+</body>
+</html>
